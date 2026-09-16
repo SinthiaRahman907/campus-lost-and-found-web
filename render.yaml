@@ -1,0 +1,21 @@
+# Render blueprint — https://render.com/docs/blueprint-spec
+#
+# The application now needs a MySQL database. Render does not offer managed
+# MySQL, so provision one elsewhere (Aiven, PlanetScale, Railway, a VPS) and
+# set DB_URL / DB_USERNAME / DB_PASSWORD on this service. Without them the
+# app falls back to localhost and will not start.
+services:
+  - type: web
+    name: lostfound
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_ADMIN_KEY
+        generateValue: true
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
